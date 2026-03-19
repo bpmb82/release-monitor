@@ -196,17 +196,24 @@ if __name__ == "__main__":
     if not os.path.exists(CONFIG_PATH):
         os.makedirs(CONFIG_PATH)
     
-    threading.Thread(target=background_worker, daemon=True).start()
+    # Start de worker
+    worker_thread = threading.Thread(target=background_worker, daemon=True)
+    worker_thread.start()
     
     if RAW_CHECK_INTERVAL:
+        # --- DAEMON MODE ---
         interval = int(RAW_CHECK_INTERVAL)
         logger.info(f"Mode: DAEMON | Interval: {interval}s")
         while True:
             check_repositories()
+            logger.debug(f"Cycle complete. Sleeping for {interval}s.")
             time.sleep(interval)
     else:
+        # --- SINGLE SHOT MODE ---
         logger.info("Mode: SINGLE SHOT")
         check_repositories()
-        if not update_queue.empty():
-            update_queue.join()
-        logger.info("Clean exit.")
+        time.sleep(1)
+        logger.info("Waiting for background worker to finish tasks...")
+        update_queue.join()
+        
+        logger.info("All tasks completed. Clean exit.")
