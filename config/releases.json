@@ -26,5 +26,13 @@
     "Mosquitto": {
         "last_tag": "v2.1.2",
         "retry_count": 0
+    },
+    "Sabnzbd": {
+        "last_tag": "4.5.5",
+        "retry_count": 0
+    },
+    "Seerr": {
+        "last_tag": "v3.1.0",
+        "retry_count": 0
     }
 }
