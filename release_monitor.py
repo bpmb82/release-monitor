@@ -28,7 +28,7 @@ STATE_FILE = os.path.join(CONFIG_PATH, "releases.json")
 RAW_CHECK_INTERVAL = os.environ.get("CHECK_INTERVAL", "").strip()
 MAX_RETRIES = int(os.environ.get("MAX_RETRIES", 2))
 DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL", "").strip('"').strip("'")
-GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "").strip('"').strip("'")
+GH_TOKEN = os.environ.get("GH_TOKEN", "").strip('"').strip("'")
 MY_REPO = os.environ.get("MY_REPO", "").strip('"').strip("'")
 MY_BRANCH = os.environ.get("MY_BRANCH", "master").strip('"').strip("'")
 
@@ -59,7 +59,9 @@ def save_state(state):
 
 def is_stable_version(tag):
     clean_tag = tag.lstrip('v')
-    is_stable = bool(re.match(r'^(\d+\.)?(\d+\.)?(\d+)$', clean_tag))
+
+    is_stable = bool(re.match(r'^\d+(\.\d+)*$', clean_tag))
+    
     logger.debug(f"Validating tag: {tag} (stable={is_stable})")
     return is_stable
 
@@ -81,10 +83,10 @@ def docker_tag_exists(repo_config, gh_tag):
         return False, expected_tag
 
 def is_workflow_running():
-    if not GITHUB_TOKEN or not MY_REPO: 
+    if not GH_TOKEN or not MY_REPO: 
         return False
     url = f"https://api.github.com/repos/{MY_REPO}/actions/runs?status=queued&status=in_progress"
-    headers = {"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}
+    headers = {"Authorization": f"Bearer {GH_TOKEN}", "Accept": "application/vnd.github+json"}
     try:
         response = requests.get(url, headers=headers, timeout=10)
         data = response.json()
@@ -95,7 +97,7 @@ def is_workflow_running():
         return False
 
 def trigger_github_tag(repo_name, final_docker_tag):
-    headers = {"Authorization": f"Bearer {GITHUB_TOKEN}", "Accept": "application/vnd.github+json"}
+    headers = {"Authorization": f"Bearer {GH_TOKEN}", "Accept": "application/vnd.github+json"}
     formatted_tag = f"{repo_name.lower()}_{final_docker_tag}"
     try:
         del_url = f"https://api.github.com/repos/{MY_REPO}/git/refs/tags/{formatted_tag}"
