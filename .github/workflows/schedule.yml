@@ -1,0 +1,44 @@
+name: Release Monitor Scheduled
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    container:
+      image: python:3.11-slim
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Skopeo and Python requirements
+        run: |
+          apt-get update
+          apt-get install -y skopeo git
+          apt-get clean
+          rm -rf /var/lib/apt/lists/*
+          pip install --no-cache-dir -r requirements.txt
+
+      - name: Run Release Monitor
+        run: python release_monitor.py
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          MY_REPO: ${{ secrets.MY_REPO }}
+          LOGLEVEL: "INFO"
+          CONFIG_PATH: "." 
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -f "config/releases.json" ]; then
+            git add config/releases.json
+            git diff --staged --quiet || (git commit -m "chore: update releases.json state [skip ci]" && git push)
+          fi

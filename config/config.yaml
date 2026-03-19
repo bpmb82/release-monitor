@@ -1,0 +1,36 @@
+repositories:
+  - name: Jellyfin
+    source: https://api.github.com/repos/jellyfin/jellyfin/releases/latest
+    docker_repo: "lscr.io/linuxserver/jellyfin"
+    docker_prefix: ""
+    docker_suffix: ""
+  - name: Sonarr
+    source: https://api.github.com/repos/Sonarr/Sonarr/releases/latest
+    docker_repo: "lscr.io/linuxserver/sonarr"
+    docker_prefix: "version-"
+    docker_suffix: ""
+  - name: Radarr
+    source: https://api.github.com/repos/Radarr/Radarr/releases/latest
+    docker_repo: "lscr.io/linuxserver/radarr"
+    docker_prefix: "version-"
+    docker_suffix: ""
+  - name: Bazarr
+    source: https://api.github.com/repos/morpheus65535/bazarr/releases/latest
+    docker_repo: "lscr.io/linuxserver/bazarr"
+    docker_prefix: ""
+    docker_suffix: ""
+  - name: Slskd
+    source: https://api.github.com/repos/slskd/slskd/releases/latest
+    docker_repo: "docker.io/slskd/slskd"
+    docker_prefix: ""
+    docker_suffix: ""
+  - name: Homeassistant
+    source: https://api.github.com/repos/home-assistant/core/releases/latest
+    docker_repo: "ghcr.io/home-assistant/home-assistant"
+    docker_prefix: ""
+    docker_suffix: ""
+  - name: Mosquitto
+    source: https://api.github.com/repos/eclipse-mosquitto/mosquitto/tags
+    docker_repo: "docker.io/eclipse-mosquitto"
+    docker_prefix: ""
+    docker_suffix: "-alpine"

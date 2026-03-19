@@ -1,0 +1,12 @@
+services:
+
+  release-monitor:
+    build: .
+    environment:
+      - DISCORD_WEBHOOK_URL=
+      - GH_TOKEN=
+      - MY_REPO=
+      - LOGLEVEL=INFO
+    volumes:
+      - "./config:/config"
+    restart: unless-stopped

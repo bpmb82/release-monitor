@@ -1,0 +1,22 @@
+{
+    "Jellyfin": {
+        "last_tag": "v10.11.6",
+        "retry_count": 0
+    },
+    "Bazarr": {
+        "last_tag": "v1.5.6",
+        "retry_count": 0
+    },
+    "Slskd": {
+        "last_tag": "0.24.5",
+        "retry_count": 0
+    },
+    "Homeassistant": {
+        "last_tag": "2026.3.2",
+        "retry_count": 0
+    },
+    "Mosquitto": {
+        "last_tag": "v2.1.2",
+        "retry_count": 0
+    }
+}
