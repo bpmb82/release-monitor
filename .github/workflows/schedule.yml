@@ -10,10 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    container:
-      image: python:3.11-slim
-
     steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
       - name: Checkout repository
         uses: actions/checkout@v4
 

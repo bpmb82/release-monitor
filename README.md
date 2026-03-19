@@ -16,7 +16,7 @@ If the ```CHECK_INTERVAL``` environment variable wasn't found, the script will r
 
 # Configuration
 
-## Environment variables
+## environment variables
 
 ```DISCORD_WEBHOOK_URL```
 Discord webhook URL for notifications
@@ -48,6 +48,6 @@ Example:
 ```docker_prefix```: Sometimes, a 'version-' or other prefix is added to the docker tag which is not included in the Git release
 ```docker_suffix```: Sometimes, an '-alpine' or other suffix is added to the docker tag which is not included in the Git release
 
-## Releases.json
+## releases.json
 
 The releases found are entered into the ```releases.json``` file in the config folder.
