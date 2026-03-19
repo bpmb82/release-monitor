@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  monitor:
+  release-monitor:
     runs-on: ubuntu-latest
     permissions:
       contents: write
