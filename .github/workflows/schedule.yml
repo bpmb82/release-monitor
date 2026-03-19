@@ -33,15 +33,14 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           MY_REPO: ${{ secrets.MY_REPO }}
           LOGLEVEL: "INFO"
-          CONFIG_PATH: "." 
+          CONFIG_PATH: "./config"
 
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # We checken nu in de root omdat CONFIG_PATH op "." staat
-          if [ -f "releases.json" ]; then
-            git add releases.json
+          if [ -f "config/releases.json" ]; then
+            git add config/releases.json
             git diff --staged --quiet || (git commit -m "chore: update releases.json state [skip ci]" && git push)
           fi
