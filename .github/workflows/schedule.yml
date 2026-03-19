@@ -10,27 +10,28 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    steps:
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
 
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Skopeo and Python requirements
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
         run: |
-          apt-get update
-          apt-get install -y skopeo git
-          apt-get clean
-          rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y skopeo
           pip install --no-cache-dir -r requirements.txt
 
       - name: Run Release Monitor
         run: python release_monitor.py
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           MY_REPO: ${{ secrets.MY_REPO }}
           LOGLEVEL: "INFO"
           CONFIG_PATH: "." 
@@ -39,7 +40,9 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          if [ -f "config/releases.json" ]; then
-            git add config/releases.json
+          
+          # We checken nu in de root omdat CONFIG_PATH op "." staat
+          if [ -f "releases.json" ]; then
+            git add releases.json
             git diff --staged --quiet || (git commit -m "chore: update releases.json state [skip ci]" && git push)
           fi
