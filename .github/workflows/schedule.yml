@@ -30,7 +30,7 @@ jobs:
         run: python release_monitor.py
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           MY_REPO: ${{ secrets.MY_REPO }}
           LOGLEVEL: "INFO"
           CONFIG_PATH: "." 
