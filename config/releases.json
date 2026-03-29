@@ -9,7 +9,7 @@
     },
     "Radarr": {
         "last_tag": "v6.1.1.10360",
-        "retry_count": 1
+        "retry_count": 2
     },
     "Bazarr": {
         "last_tag": "v1.5.6",
