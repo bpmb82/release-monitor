@@ -1,6 +1,6 @@
 {
     "Jellyfin": {
-        "last_tag": "v10.11.6",
+        "last_tag": "v10.11.7",
         "retry_count": 0
     },
     "Sonarr": {
@@ -20,7 +20,7 @@
         "retry_count": 0
     },
     "Homeassistant": {
-        "last_tag": "2026.3.2",
+        "last_tag": "2026.3.4",
         "retry_count": 0
     },
     "Mosquitto": {
