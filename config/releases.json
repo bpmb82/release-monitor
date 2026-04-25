@@ -16,11 +16,11 @@
         "retry_count": 0
     },
     "Slskd": {
-        "last_tag": "0.24.5",
+        "last_tag": "0.25.1",
         "retry_count": 0
     },
     "Homeassistant": {
-        "last_tag": "2026.4.3",
+        "last_tag": "2026.4.4",
         "retry_count": 0
     },
     "Mosquitto": {
