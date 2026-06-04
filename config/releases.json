@@ -20,7 +20,7 @@
         "retry_count": 0
     },
     "Homeassistant": {
-        "last_tag": "2026.5.4",
+        "last_tag": "2026.6.0",
         "retry_count": 0
     },
     "Mosquitto": {
@@ -32,7 +32,7 @@
         "retry_count": 0
     },
     "Seerr": {
-        "last_tag": "v3.2.0",
+        "last_tag": "v3.3.0",
         "retry_count": 0
     }
 }
