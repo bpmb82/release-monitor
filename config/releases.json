@@ -8,8 +8,8 @@
         "retry_count": 0
     },
     "Radarr": {
-        "last_tag": "v6.1.1.10360",
-        "retry_count": 999
+        "last_tag": "v6.2.1.10461",
+        "retry_count": 0
     },
     "Bazarr": {
         "last_tag": "v1.5.6",
@@ -20,7 +20,7 @@
         "retry_count": 0
     },
     "Homeassistant": {
-        "last_tag": "2026.6.1",
+        "last_tag": "2026.6.2",
         "retry_count": 0
     },
     "Mosquitto": {
