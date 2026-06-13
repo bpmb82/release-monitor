@@ -20,7 +20,7 @@
         "retry_count": 0
     },
     "Homeassistant": {
-        "last_tag": "2026.6.2",
+        "last_tag": "2026.6.3",
         "retry_count": 0
     },
     "Mosquitto": {
@@ -28,7 +28,7 @@
         "retry_count": 0
     },
     "Sabnzbd": {
-        "last_tag": "5.0.3",
+        "last_tag": "5.0.4",
         "retry_count": 0
     },
     "Seerr": {
