@@ -4,7 +4,7 @@
         "retry_count": 0
     },
     "Sonarr": {
-        "last_tag": "v4.0.18.2971",
+        "last_tag": "v4.0.19.2979",
         "retry_count": 0
     },
     "Radarr": {
@@ -20,7 +20,7 @@
         "retry_count": 0
     },
     "Homeassistant": {
-        "last_tag": "2026.6.4",
+        "last_tag": "2026.7.0",
         "retry_count": 0
     },
     "Mosquitto": {
