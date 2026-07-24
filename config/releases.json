@@ -20,8 +20,8 @@
         "retry_count": 0
     },
     "Homeassistant": {
-        "last_tag": "2026.7.3",
-        "retry_count": 0
+        "last_tag": "2026.7.4",
+        "retry_count": 1
     },
     "Mosquitto": {
         "last_tag": "v2.1.2",
