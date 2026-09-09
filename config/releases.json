@@ -1,7 +1,7 @@
 {
     "Jellyfin": {
         "last_tag": "v12.0",
-        "retry_count": 1
+        "retry_count": 2
     },
     "Sonarr": {
         "last_tag": "v4.0.19.2979",
@@ -20,7 +20,7 @@
         "retry_count": 0
     },
     "Homeassistant": {
-        "last_tag": "2026.8.3",
+        "last_tag": "2026.9.1",
         "retry_count": 0
     },
     "Mosquitto": {
@@ -28,7 +28,7 @@
         "retry_count": 0
     },
     "Sabnzbd": {
-        "last_tag": "5.1.2",
+        "last_tag": "5.1.3",
         "retry_count": 0
     },
     "Seerr": {
