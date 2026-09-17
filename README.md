@@ -35,6 +35,12 @@ Optional, default loglevel is ```INFO```
 Example:
 
 ```
+repositories:
+  - name: Homeassistant
+    source: https://api.github.com/repos/home-assistant/core/releases/latest
+    docker_repo: "ghcr.io/home-assistant/home-assistant"
+    docker_prefix: ""
+    docker_suffix: ""
   - name: Mosquitto
     source: https://api.github.com/repos/eclipse-mosquitto/mosquitto/tags
     docker_repo: "docker.io/eclipse-mosquitto"
@@ -42,11 +48,11 @@ Example:
     docker_suffix: "-alpine"
 ```
 
-```name```: The name of the repository (this is used to send the tag to the Helm repo)
-```source```: The API URL to the Git repository
-```docker_repo```: The link to the docker registry and the image we need (no tag)
-```docker_prefix```: Sometimes, a 'version-' or other prefix is added to the docker tag which is not included in the Git release
-```docker_suffix```: Sometimes, an '-alpine' or other suffix is added to the docker tag which is not included in the Git release
+```name```: The name of the repository (this is used to send the tag to the Helm repo)   
+```source```: The API URL to the Git repository   
+```docker_repo```: The link to the docker registry and the image we need (no tag)   
+```docker_prefix```: Sometimes, a 'version-' or other prefix is added to the docker tag which is not included in the Git release   
+```docker_suffix```: Sometimes, an '-alpine' or other suffix is added to the docker tag which is not included in the Git release   
 
 ## releases.json
 
