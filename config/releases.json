@@ -4,11 +4,11 @@
         "retry_count": 999
     },
     "Sonarr": {
-        "last_tag": "v4.0.19.2979",
+        "last_tag": "v4.0.20.3014",
         "retry_count": 0
     },
     "Radarr": {
-        "last_tag": "v6.3.0.10514",
+        "last_tag": "v6.4.4.10685",
         "retry_count": 0
     },
     "Bazarr": {
