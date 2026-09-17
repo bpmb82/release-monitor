@@ -155,7 +155,7 @@ def background_worker():
         update_queue.task_done()
 
 def check_repositories():
-    logger.debug("Starting repository scan...")
+    logger.info("Starting repository scan...")
     config = load_config()
     state = load_state()
     updated = False
@@ -163,15 +163,20 @@ def check_repositories():
 
     for repo in config.get("repositories", []):
         name = repo.get("name")
-        if not name or name in current_queue_names: continue
+        if not name or name in current_queue_names:
+            logger.info(f"Skipping '{name}', either empty or not in {current_queue_names}")
+            continue
 
         try:
             res = requests.get(repo.get("source"), headers={"User-Agent": "Release-Monitor-Bot"}, timeout=10)
-            if res.status_code != 200: continue
+            if res.status_code != 200:
+                raise ValueError(res.status_code)
             
             data = res.json()
             gh_tag = data[0].get("name") if isinstance(data, list) else data.get("tag_name")
-            if not gh_tag or not is_stable_version(gh_tag): continue
+            if not gh_tag or not is_stable_version(gh_tag): 
+                logger.info(f"No stable tag found for {name} with tag: {gh_tag}")
+                continue
 
             repo_state = state.get(name, {"last_tag": None, "retry_count": 0})
 
@@ -185,8 +190,10 @@ def check_repositories():
                     logger.warning(f"Docker image {name}:{docker_tag} not found yet (attempt {current_retries})")
                     state[name] = {"last_tag": gh_tag, "retry_count": current_retries if current_retries <= MAX_RETRIES else 999}
                     updated = True
-        except Exception:
-            logger.error(f"Check failed for repository: {name}")
+        except ValueError as val:
+            logger.error(f"Invalid status code for repository '{name}': {val.args}")
+        except Exception as exc:
+            logger.error(f"Check failed for repository '{name}': {exc}")
 
     if updated:
         save_state(state)
