@@ -184,8 +184,7 @@ def check_repositories():
             logger.debug(f"Tag found was: {gh_tag}")
 
             repo_state = state.get(name, {"last_tag": None, "retry_count": 0})
-            logger.debug(f"Repo state is: {repo_state}")
-            logger.debug(f"Repo last tag is {repo_state['last_tag']}")
+            logger.debug(f"Last tag in config is {repo_state['last_tag']}")
 
             if repo_state["last_tag"] != gh_tag or (0 < repo_state["retry_count"] <= MAX_RETRIES):
                 exists, docker_tag = docker_tag_exists(repo, gh_tag)
