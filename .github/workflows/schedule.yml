@@ -32,7 +32,7 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           MY_REPO: ${{ secrets.MY_REPO }}
-          LOGLEVEL: "INFO"
+          LOGLEVEL: "DEBUG"
           CONFIG_PATH: "./config"
 
       - name: Commit and push changes

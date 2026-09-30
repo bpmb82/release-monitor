@@ -173,15 +173,20 @@ def check_repositories():
                 raise ValueError(res.status_code)
             
             data = res.json()
+            logger.debug(f"Result from Github: {data}")
             gh_tag = data[0].get("name") if isinstance(data, list) else data.get("tag_name")
             if not gh_tag or not is_stable_version(gh_tag): 
                 logger.info(f"No stable tag found for {name} with tag: {gh_tag}")
                 continue
 
+            logger.debug(f"Tag found was: {gh_tag}")
+
             repo_state = state.get(name, {"last_tag": None, "retry_count": 0})
+            logger.debug(f"Repo state is: {repo_state}")
 
             if repo_state["last_tag"] != gh_tag or (0 < repo_state["retry_count"] <= MAX_RETRIES):
                 exists, docker_tag = docker_tag_exists(repo, gh_tag)
+                logger.debug(f"Tag exists: {exists} and tag found was: {docker_tag}")
                 if exists:
                     logger.info(f"New version verified for {name}: {docker_tag}")
                     update_queue.put((name, docker_tag, gh_tag))
