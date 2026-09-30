@@ -2,8 +2,8 @@ repositories:
   - name: Jellyfin
     source: https://api.github.com/repos/jellyfin/jellyfin/releases/latest
     docker_repo: "lscr.io/linuxserver/jellyfin"
-    docker_prefix: ""
-    docker_suffix: ""
+    docker_prefix: "version-"
+    docker_suffix: "ubu2604"
   - name: Sabnzbd
     source: https://api.github.com/repos/sabnzbd/sabnzbd/releases/latest
     docker_repo: "lscr.io/linuxserver/sabnzbd"
@@ -25,7 +25,7 @@ repositories:
     docker_prefix: ""
     docker_suffix: ""
   - name: Seerr
-    source: https://api.github.com/repos/seerr-team/seerr/releases/latest
+    source: https://api.github.com/repos/seerr-team/seerr/releases/latest 
     docker_repo: "ghcr.io/seerr-team/seerr"
     docker_prefix: "v"
     docker_suffix: ""
