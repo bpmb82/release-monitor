@@ -79,6 +79,8 @@ def docker_tag_exists(repo_config, gh_tag):
     
     clean_tag = clean_version_tag(gh_tag)
     expected_tag = f"{prefix}{clean_tag}{suffix}"
+
+    logger.debug(f"The expected tag is: {expected_tag}, the cleaned tag is: {clean_tag}")
     
     image_path = f"docker://{full_repo}:{expected_tag}"
     logger.debug(f"Checking registry: {full_repo}:{expected_tag}")
@@ -183,6 +185,7 @@ def check_repositories():
 
             repo_state = state.get(name, {"last_tag": None, "retry_count": 0})
             logger.debug(f"Repo state is: {repo_state}")
+            logger.debug(f"Repo last tag is {repo_state["last_tag"]}")
 
             if repo_state["last_tag"] != gh_tag or (0 < repo_state["retry_count"] <= MAX_RETRIES):
                 exists, docker_tag = docker_tag_exists(repo, gh_tag)
