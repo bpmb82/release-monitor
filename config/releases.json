@@ -1,6 +1,6 @@
 {
     "Jellyfin": {
-        "last_tag": "v12.1",
+        "last_tag": "v12.0",
         "retry_count": 999
     },
     "Sonarr": {
