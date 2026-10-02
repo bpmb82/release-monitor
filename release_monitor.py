@@ -108,7 +108,9 @@ def trigger_github_tag(repo_name, final_docker_tag):
     headers = {"Authorization": f"Bearer {GH_TOKEN}", "Accept": "application/vnd.github+json"}
     formatted_tag = f"{repo_name.lower()}_{final_docker_tag}"
     try:
-        requests.delete(f"https://api.github.com/repos/{MY_REPO}/git/refs/tags/{formatted_tag}", headers=headers, timeout=10)
+        res = requests.delete(f"https://api.github.com/repos/{MY_REPO}/git/refs/tags/{formatted_tag}", headers=headers, timeout=10)
+        if res.status_code == 201:
+            logger.debug(f"Tag {formatted_tag} was deleted from Github")
         
         ref_res = requests.get(f"https://api.github.com/repos/{MY_REPO}/git/refs/heads/{MY_BRANCH}", headers=headers, timeout=10)
         ref_res.raise_for_status()
@@ -116,6 +118,7 @@ def trigger_github_tag(repo_name, final_docker_tag):
 
         payload = {"ref": f"refs/tags/{formatted_tag}", "sha": sha}
         res = requests.post(f"https://api.github.com/repos/{MY_REPO}/git/refs", headers=headers, json=payload, timeout=10)
+        logger.debug(f"Request output: {res.text}")
         return res.status_code == 201
     except:
         logger.error(f"Error while tagging {repo_name} on GitHub")
