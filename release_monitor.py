@@ -116,10 +116,13 @@ def trigger_github_tag(repo_name, final_docker_tag):
         res = requests.delete(f"https://api.github.com/repos/{MY_REPO}/git/refs/tags/{formatted_tag}", headers=headers, timeout=10)
         if res.status_code == 201:
             logger.debug(f"Tag {formatted_tag} was deleted from Github")
+        else:
+            logger.debug(f"Error while trying to delete Github tag: {res.status_code}")
         
         ref_res = requests.get(f"https://api.github.com/repos/{MY_REPO}/git/refs/heads/{MY_BRANCH}", headers=headers, timeout=10)
         ref_res.raise_for_status()
         sha = ref_res.json()["object"]["sha"]
+        logger.debug(f"Get SHA result: {sha}")
 
         payload = {"ref": f"refs/tags/{formatted_tag}", "sha": sha}
         res = requests.post(f"https://api.github.com/repos/{MY_REPO}/git/refs", headers=headers, json=payload, timeout=10)
