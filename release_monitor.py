@@ -100,13 +100,13 @@ def is_workflow_running():
     headers = {"Authorization": f"Bearer {GH_TOKEN}", "Accept": "application/vnd.github+json"}
     try:
         response = requests.get(url, headers=headers, timeout=10)
-        logger.debug(f"Number of jobs on runner: {len(response.json().get('workflow_runs'), [])}")
+        logger.debug(f"Number of jobs on runner: {len(response.json().get('workflow_runs'))}")
         return len(response.json().get("workflow_runs", [])) > 0
     except ValueError as val:
-        logger.error(f"Invalid status code for repository '{name}': {val.args}")
+        logger.error(f"Invalid status code for repository workflow check: {val.args}")
         return False
     except Exception as exc:
-        logger.error(f"Check failed for repository '{name}': {exc}")
+        logger.error(f"Workflow running check failed for repository: {exc}")
         return False
 
 def trigger_github_tag(repo_name, final_docker_tag):
