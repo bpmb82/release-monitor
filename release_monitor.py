@@ -152,7 +152,8 @@ def background_worker():
                 if DISCORD_WEBHOOK_URL:
                     try: 
                         msg = {"content": f"🚀 **Update:** {repo_name} triggered to version `{docker_tag}`"}
-                        requests.post(DISCORD_WEBHOOK_URL, json=msg, timeout=10)
+                        response = requests.post(DISCORD_WEBHOOK_URL, json=msg, timeout=10)
+                        logger.debug(f"Discord webhook: Status {response.status_code}")
                     except: 
                         pass
                 
