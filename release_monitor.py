@@ -138,15 +138,13 @@ def background_worker():
         task = update_queue.get()
         repo_name, docker_tag, gh_tag = task
         
-        while True:
-            if is_workflow_running():
-                logger.info("GitHub Action busy. Waiting 2 minutes...")
-                time.sleep(120)
-                continue
+        try:
+            # In single-shot mode (GitHub Actions) kunnen we direct actie ondernemen
+            # Eventueel kun je een kortere check inbouwen als je wilt wachten tot actieve workflows klaar zijn.
+            while is_workflow_running():
+                logger.info("GitHub Action busy. Waiting 30 seconds...")
+                time.sleep(30)
             
-            time.sleep(30) # Settle time
-            if is_workflow_running(): continue
-
             if trigger_github_tag(repo_name, docker_tag):
                 state = load_state()
                 state[repo_name] = {"last_tag": gh_tag, "retry_count": 0}
@@ -160,13 +158,13 @@ def background_worker():
                     except: 
                         pass
                 
-                logger.info(f"Successfully processed {repo_name}. Entering 90s cooldown.")
-                time.sleep(90)
-                break
+                logger.info(f"Successfully processed {repo_name}.")
             else:
                 logger.error(f"Failed to trigger update for {repo_name}.")
-                break
-        update_queue.task_done()
+        except Exception as e:
+            logger.error(f"Error in background worker for {repo_name}: {e}")
+        finally:
+            update_queue.task_done()
 
 def check_repositories():
     logger.info("Starting repository scan...")
